@@ -19,10 +19,10 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
-        My name is <span className="font-medium">Mahmoud</span>, and I'm a{" "}
+        My name is <span className="font-medium">Mahmoud</span>, and I&apos;m a{" "}
         <span className="font-medium"> full-stack developer</span>, passionate
-        about open source and technology that has a positive impact on people's
-        lives.{" "}
+        about open source and technology that has a positive impact on
+        people&apos;s lives.{" "}
         <span className="font-medium">
           I enjoy creating beautiful and user-friendly web interfaces
         </span>
