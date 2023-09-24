@@ -24,3 +24,14 @@ export const getErrorMessage = (error: unknown): string => {
 
   return message;
 };
+
+export const extractYears = (startDate: Date, endDate: Date): string => {
+  const startYear = startDate.getFullYear().toString();
+  const endYear = endDate.getFullYear().toString();
+
+  if (!endDate) {
+    return `${startYear}`;
+  }
+
+  return `${startYear} - ${endYear}`;
+};

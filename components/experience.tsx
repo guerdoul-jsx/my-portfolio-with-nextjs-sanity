@@ -7,30 +7,29 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import { experiencesData } from "@/lib/data";
 import { useSectionInView } from "@/hooks/use-section-in-view";
 import { useTheme } from "@/context/theme-context";
-import { getExperiences } from "@/sanity/sanity.utils";
+import { extractYears } from "@/lib/utils";
+import { ExperienceType } from "@/types";
+import { DiAtom, DiCode, DiLess, DiReact } from "react-icons/di";
 
-export default function Experience() {
+export const revalidate = 0;
+
+export default function Experience({
+  experiences,
+}: {
+  experiences: ExperienceType[];
+}) {
   const { ref } = useSectionInView("Experience");
   const { theme } = useTheme();
 
-  const [experiences, setExperiences] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const res = await getExperiences();
-      console.log("Response", res);
-      setExperiences(res as any);
-    })();
-  }, []);
+  const Icons = [DiAtom, DiCode, DiLess, DiReact];
 
   return (
     <section id="experience" ref={ref} className="scroll-mt-28 mb-28 sm:mb-40">
       <SectionHeading>My experience</SectionHeading>
       <VerticalTimeline lineColor="">
-        {experiencesData.map((item, index) => (
+        {experiences.map((item, index) => (
           <React.Fragment key={index}>
             <VerticalTimelineElement
               contentStyle={{
@@ -47,8 +46,11 @@ export default function Experience() {
                     ? "0.4rem solid #9ca3af"
                     : "0.4rem solid rgba(255, 255, 255, 0.5)",
               }}
-              date={item.date}
-              icon={item.icon}
+              date={extractYears(
+                new Date(item.startDate),
+                new Date(item.endDate)
+              )}
+              icon={React.createElement(Icons[index])}
               iconStyle={{
                 background:
                   theme === "light" ? "white" : "rgba(255, 255, 255, 0.15)",
