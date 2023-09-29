@@ -44,6 +44,8 @@ export default function Contact({ email }: { email: string }) {
         action={async (formData) => {
           const { data, error } = await sendEmail(formData);
 
+          console.log("FORM DATA", formData);
+
           if (error) {
             toast.error(error);
             return;
