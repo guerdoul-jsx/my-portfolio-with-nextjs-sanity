@@ -7,9 +7,17 @@ import { useSectionInView } from "@/hooks/use-section-in-view";
 import { sendEmail } from "@/actions/send-email";
 import SubmitBtn from "./submit-btn";
 import toast from "react-hot-toast";
+import { BsPhone } from "react-icons/bs";
 
-export default function Contact({ email }: { email: string }) {
+export default function Contact({
+  email,
+  phone,
+}: {
+  email: string;
+  phone: string;
+}) {
   const { ref } = useSectionInView("Contact");
+  const whatsapp = `0${phone.replace("+212", "")}`;
 
   return (
     <motion.section
@@ -30,11 +38,20 @@ export default function Contact({ email }: { email: string }) {
       }}
     >
       <SectionHeading>Contact me</SectionHeading>
-      <p className="text-gray-700 -mt-6 dark:text-white/80">
-        Please contact me directly at{" "}
-        <a className="underline" href={`mailto:${email}`}>
+      <p className="text-gray-700 -mt-6 dark:text-white/80 ">
+        Feel free to contact me directly at{" "}
+        <a className="underline font-extrabold" href={`mailto:${email}`}>
           {email}
         </a>{" "}
+        or by using Whatsapp
+        <a
+          className="underline font-extrabold"
+          target="_blank"
+          href={`https://api.whatsapp.com/send/?phone=${whatsapp}&text&type=phone_number&app_absent=0`}
+        >
+          {" "}
+          {phone}{" "}
+        </a>
         or through this form.
       </p>
 

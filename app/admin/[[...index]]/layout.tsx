@@ -1,11 +1,15 @@
+import { metaObject } from "@/config/website";
+import { Metadata } from "next";
+
 interface AdminLayout {
   children: React.ReactNode;
 }
 
-export const metadata = {
-  title: "Admin Dashboard | Mahmoud Guerdoul Portfolio",
-  description:
-    "A admin Dashboard to manage the content for mahmoud guerdoul websites",
+export const metadata: Metadata = {
+  ...metaObject(
+    "Admin Dashboard | Mahmoud Guerdoul Portfolio",
+    "A admin Dashboard to manage the content for mahmoud guerdoul websites"
+  ),
 };
 const adminLayout = ({ children }: AdminLayout) => {
   return <>{children}</>;

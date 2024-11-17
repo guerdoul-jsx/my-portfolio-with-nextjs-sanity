@@ -6,13 +6,8 @@ import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
 import Skills from "@/components/skills";
 
-import {
-  getExperiences,
-  getProfileInfo,
-  getProjects,
-  getSkills,
-} from "@/sanity/sanity.utils";
-import { ExperienceType, ProjectsType, SkillsType } from "@/types";
+import { getProfileInfo, getProjects, getSkills } from "@/sanity/sanity.utils";
+import { ProjectsType, SkillsType } from "@/types";
 
 export const revalidate = 0;
 
@@ -28,7 +23,6 @@ export default async function Home(props: any) {
 
   //  fetch the skills from Sanity
   const skills: SkillsType[] = await getSkills();
-
   return (
     <main className="flex flex-col items-center px-4">
       <Intro {...infos[0]} />
@@ -37,7 +31,7 @@ export default async function Home(props: any) {
       <Projects projects={projects} />
       <Skills skills={skills} />
       {/* <Experience experiences={experiences} /> */}
-      <Contact email={infos[0].email} />
+      <Contact email={infos[0].email} phone={infos[0].phone} />
     </main>
   );
 }
