@@ -25,19 +25,6 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className="!scroll-smooth">
-      <Script id="hotjar-script">
-        {`
-          (function (c, s, q, u, a, r, e) {
-            c.hj=c.hj||function(){(c.hj.q=c.hj.q||[]).push(arguments)};
-            c._hjSettings = { hjid: a };
-            r = s.getElementsByTagName('head')[0];
-            e = s.createElement('script');
-            e.async = true;
-            e.src = q + c._hjSettings.hjid + u;
-            r.appendChild(e);
-        })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 5210917);
-        `}
-      </Script>
       <body
         className={`${inter.className} bg-gray-50 text-gray-950 relative  dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90`}
       >
@@ -54,6 +41,19 @@ export default async function RootLayout({
         </ThemeContextProvider>
       </body>
       <GoogleAnalytics gaId="G-GXKKG3TRQX" />
+      <Script id="hotjar-script">
+        {`
+          (function (c, s, q, u, a, r, e) {
+            c.hj=c.hj||function(){(c.hj.q=c.hj.q||[]).push(arguments)};
+            c._hjSettings = { hjid: a };
+            r = s.getElementsByTagName('head')[0];
+            e = s.createElement('script');
+            e.async = true;
+            e.src = q + c._hjSettings.hjid + u;
+            r.appendChild(e);
+        })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 5210917);
+        `}
+      </Script>
     </html>
   );
 }
