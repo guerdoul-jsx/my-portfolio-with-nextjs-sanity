@@ -41,8 +41,10 @@ export default async function RootLayout({
         </ThemeContextProvider>
       </body>
       <GoogleAnalytics gaId="G-GXKKG3TRQX" />
-      <Script id="hotjar-script">
-        {`
+      <Script
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
           (function (c, s, q, u, a, r, e) {
             c.hj=c.hj||function(){(c.hj.q=c.hj.q||[]).push(arguments)};
             c._hjSettings = { hjid: a };
@@ -52,8 +54,9 @@ export default async function RootLayout({
             e.src = q + c._hjSettings.hjid + u;
             r.appendChild(e);
         })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 5210917);
-        `}
-      </Script>
+        `,
+        }}
+      ></Script>
     </html>
   );
 }
