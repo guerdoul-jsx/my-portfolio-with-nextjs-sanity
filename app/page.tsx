@@ -21,7 +21,7 @@ export default async function Home(props: any) {
   const infos = await getProfileInfo();
 
   // fetch the experiences from Sanity
-  const experiences: ExperienceType[] = await getExperiences();
+  // const experiences: ExperienceType[] = await getExperiences();
 
   // fetch the Project from Sanity
   const projects: ProjectsType[] = await getProjects();
@@ -36,7 +36,7 @@ export default async function Home(props: any) {
       <About />
       <Projects projects={projects} />
       <Skills skills={skills} />
-      <Experience experiences={experiences} />
+      {/* <Experience experiences={experiences} /> */}
       <Contact email={infos[0].email} />
     </main>
   );
