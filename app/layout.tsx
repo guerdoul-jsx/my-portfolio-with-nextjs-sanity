@@ -42,6 +42,7 @@ export default async function RootLayout({
       </body>
       <GoogleAnalytics gaId="G-GXKKG3TRQX" />
       <Script
+        id="hot"
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: `
