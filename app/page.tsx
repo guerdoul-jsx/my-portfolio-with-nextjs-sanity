@@ -1,6 +1,6 @@
+import { getIPInfo } from "@/actions/ip";
 import About from "@/components/about";
 import Contact from "@/components/contact";
-import Experience from "@/components/experience";
 import Intro from "@/components/intro";
 import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
@@ -23,6 +23,18 @@ export default async function Home(props: any) {
 
   //  fetch the skills from Sanity
   const skills: SkillsType[] = await getSkills();
+
+  // todo: here we gona add some ip tests
+  //
+  //
+  //
+  const ip_info = await getIPInfo();
+  console.log("ip-info", ip_info);
+
+  //
+  //
+  //
+
   return (
     <main className="flex flex-col items-center px-4">
       <Intro {...infos[0]} />

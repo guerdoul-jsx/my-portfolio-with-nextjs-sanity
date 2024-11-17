@@ -41,7 +41,7 @@ export default function Contact({
       <p className="text-gray-700 -mt-6 dark:text-white/80 ">
         Feel free to contact me directly at{" "}
         <a className="underline font-extrabold" href={`mailto:${email}`}>
-          {email}
+          contact@guerdoul.com
         </a>{" "}
         or by using Whatsapp
         <a
@@ -66,7 +66,6 @@ export default function Contact({
             toast.error(error);
             return;
           }
-
           toast.success("Email sent successfully!");
         }}
       >
