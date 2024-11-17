@@ -20,13 +20,17 @@ export default function Experience({
 }: {
   experiences: ExperienceType[];
 }) {
-  const { ref } = useSectionInView("Experience");
+  // const { ref } = useSectionInView("Experience");
   const { theme } = useTheme();
 
   const Icons = [DiAtom, DiCode, DiLess, DiReact];
 
   return (
-    <section id="experience" ref={ref} className="scroll-mt-28 mb-28 sm:mb-40">
+    <section
+      id="experience"
+      ref={/*ref */ undefined}
+      className="scroll-mt-28 mb-28 sm:mb-40"
+    >
       <SectionHeading>My experience</SectionHeading>
       <VerticalTimeline lineColor="">
         {experiences.map((item, index) => (
