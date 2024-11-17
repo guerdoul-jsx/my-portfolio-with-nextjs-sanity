@@ -8,6 +8,7 @@ import Skills from "@/components/skills";
 
 import { getProfileInfo, getProjects, getSkills } from "@/sanity/sanity.utils";
 import { ProjectsType, SkillsType } from "@/types";
+import Script from "next/script";
 
 export const revalidate = 0;
 

@@ -29,7 +29,23 @@ export default async function RootLayout({
         className={`${inter.className} bg-gray-50 text-gray-950 relative  dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90`}
       >
         <div className="bg-gradient-to-r from-yellow-300 to-amber-200 animate-bounce animate-infinite animate-duration-[5000ms] animate-delay-100 animate-ease-in-out absolute top-[-6rem] -z-10 right-[5rem] h-[50.25rem] w-full rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-[#946263]"></div>
-
+        <Script
+          id="hotjar"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function (c, s, q, u, a, r, e) {
+                c.hj=c.hj||function(){(c.hj.q=c.hj.q||[]).push(arguments)};
+                c._hjSettings = { hjid: a };
+                r = s.getElementsByTagName('head')[0];
+                e = s.createElement('script');
+                e.async = true;
+                e.src = q + c._hjSettings.hjid + u;
+                r.appendChild(e);
+            })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 5210917);
+        `,
+          }}
+        />
         <ThemeContextProvider>
           <ActiveSectionContextProvider>
             <Header />
@@ -41,23 +57,6 @@ export default async function RootLayout({
         </ThemeContextProvider>
       </body>
       <GoogleAnalytics gaId="G-GXKKG3TRQX" />
-      <Script
-        id="hot"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-          (function (c, s, q, u, a, r, e) {
-            c.hj=c.hj||function(){(c.hj.q=c.hj.q||[]).push(arguments)};
-            c._hjSettings = { hjid: a };
-            r = s.getElementsByTagName('head')[0];
-            e = s.createElement('script');
-            e.async = true;
-            e.src = q + c._hjSettings.hjid + u;
-            r.appendChild(e);
-        })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 5210917);
-        `,
-        }}
-      ></Script>
     </html>
   );
 }
