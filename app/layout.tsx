@@ -6,11 +6,9 @@ import Footer from "@/components/footer";
 import ThemeSwitch from "@/components/theme-switch";
 import ThemeContextProvider from "@/context/theme-context";
 import { Toaster } from "react-hot-toast";
-import { Metadata } from "next";
 import { metaObject } from "@/config/website";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { getIPInfo } from "@/actions/ip";
-import Head from "next/head";
+
 import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 

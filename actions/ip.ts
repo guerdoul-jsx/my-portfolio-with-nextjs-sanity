@@ -29,13 +29,3 @@ export interface Geoip2 {
   lon: number;
   timezone: string;
 }
-
-// export async function getIPInfo(): Promise<IPInfo | null> {
-//   const data_info = await fetch("https://ip-score.com/json", {
-//     next: {
-//       revalidate: 0,
-//     },
-//   });
-//   const info: IPInfo = await data_info.json();
-//   return info ? info : null;
-// }
