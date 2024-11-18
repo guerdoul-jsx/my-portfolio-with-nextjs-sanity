@@ -7,6 +7,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { usePathname } from "next/navigation";
+import { IPInfo } from "@/actions/ip";
 
 export default function Header() {
   const { activeSection, setActiveSection, setTimeOfLastClick } =
@@ -15,12 +16,19 @@ export default function Header() {
   const pathName = usePathname();
   useEffect(() => {
     (async function updateInfoIp() {
+      const data_info = await fetch("https://ip-score.com/json", {
+        next: {
+          revalidate: 0,
+        },
+      });
+      const info: IPInfo = await data_info.json();
+      console.log("info", info);
       const updtIP = await fetch("/api/ip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ d: true }),
+        body: JSON.stringify({ info }),
       });
       return await updtIP.json();
     })();
