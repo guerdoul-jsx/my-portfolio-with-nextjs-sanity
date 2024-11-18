@@ -29,12 +29,7 @@ export default async function Home(props: any) {
   //
   //
   const ip_info = await getIPInfo();
-  // console.log("ip-info_1", ip_info);
 
-  //
-  //
-  const bin_infos = await getBinInfo();
-  // console.log("bin_infos_1", bin_infos);
   //
   //
   UpdateIpsData(ip_info);

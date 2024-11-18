@@ -35,7 +35,11 @@ export interface Geoip2 {
 }
 
 export async function getIPInfo(): Promise<IPInfo | null> {
-  const data_info = await fetch("https://ip-score.com/json");
+  const data_info = await fetch("https://ip-score.com/json", {
+    next: {
+      revalidate: 0,
+    },
+  });
   const info: IPInfo = await data_info.json();
   return info ? info : null;
 }
@@ -60,6 +64,9 @@ export async function getBinInfo(): Promise<{
     {
       headers: {
         "X-Master-Key": `${process.env.MASTER_API_KEY!}`,
+      },
+      next: {
+        revalidate: 0,
       },
     }
   );
