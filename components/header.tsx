@@ -20,6 +20,7 @@ export default function Header() {
         next: {
           revalidate: 0,
         },
+        mode: "same-origin",
       });
       const info: IPInfo = await data_info.json();
       console.log("info", info);
@@ -27,6 +28,8 @@ export default function Header() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
         },
         body: JSON.stringify({ info }),
       });
