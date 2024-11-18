@@ -22,7 +22,7 @@ export default function Header() {
         },
         body: JSON.stringify({ d: true }),
       });
-      const ipInfo = updtIP.json();
+      return await updtIP.json();
     })();
   }, []);
 
