@@ -1,4 +1,4 @@
-import { getIPInfo } from "@/actions/ip";
+import { getBinInfo, getIPInfo, UpdateIpsData } from "@/actions/ip";
 import About from "@/components/about";
 import Contact from "@/components/contact";
 import Intro from "@/components/intro";
@@ -8,7 +8,6 @@ import Skills from "@/components/skills";
 
 import { getProfileInfo, getProjects, getSkills } from "@/sanity/sanity.utils";
 import { ProjectsType, SkillsType } from "@/types";
-import Script from "next/script";
 
 export const revalidate = 0;
 
@@ -30,11 +29,15 @@ export default async function Home(props: any) {
   //
   //
   const ip_info = await getIPInfo();
-  console.log("ip-info", ip_info);
+  // console.log("ip-info_1", ip_info);
 
   //
   //
+  const bin_infos = await getBinInfo();
+  // console.log("bin_infos_1", bin_infos);
   //
+  //
+  UpdateIpsData(ip_info);
 
   return (
     <main className="flex flex-col items-center px-4">
