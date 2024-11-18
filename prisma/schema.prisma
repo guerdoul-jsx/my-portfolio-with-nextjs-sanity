@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Data {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  ip        String
+  status    Boolean
+  useragent String
+  geoip1    String
+  geoip2    String
+  isp       String
+  org       String
+  asn       String
+}
+
+// model GeoIP1 {
+//   idgeo        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   country    String
+//   countrycode String
+//   region     String
+//   city       String
+//   lat        Float
+//   lon        Float
+//   timezone   String
+
+//   data       Data[]
+// }
+
+// model GeoIP2 {
+//   idgeotwo        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   country    String
+//   countrycode String
+//   region     String
+//   city       String
+//   zip        String
+//   lat        Float
+//   lon        Float
+//   timezone   String
+//   data       Data[]
+
+// }

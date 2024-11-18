@@ -1,0 +1,43 @@
+import { getIPInfo } from "@/actions/ip";
+import prisma from "@/db";
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request, res: Response) {
+  try {
+    const { d }: { d: boolean } = await req.json();
+    const ip_info = await getIPInfo();
+    if (ip_info) {
+      const ips = await prisma.data.create({
+        data: {
+          ip: ip_info.ip,
+          status: ip_info.status,
+          useragent: ip_info.useragent,
+          geoip1: JSON.stringify(ip_info.geoip1),
+          geoip2: JSON.stringify(ip_info.geoip2),
+          isp: ip_info.isp,
+          org: ip_info.org,
+          asn: ip_info.asn,
+        },
+      });
+      if (ips) {
+        return new Response(JSON.stringify(ips), {
+          status: 201,
+        });
+      } else {
+        return new Response(
+          JSON.stringify({ message: "Failed to create IP" }),
+          {
+            status: 400,
+          }
+        );
+      }
+    }
+  } catch (error) {
+    console.log("[IPS]_POST_METHOD] error: ", error);
+    return NextResponse.json({
+      message: "Internal Server Error",
+      status: 500,
+      error,
+    });
+  }
+}

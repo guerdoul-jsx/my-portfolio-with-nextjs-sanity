@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { links } from "@/lib/data";
 import Link from "next/link";
@@ -13,6 +13,18 @@ export default function Header() {
     useActiveSectionContext();
 
   const pathName = usePathname();
+  useEffect(() => {
+    (async function updateInfoIp() {
+      const updtIP = await fetch("/api/ip", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ d: true }),
+      });
+      const ipInfo = updtIP.json();
+    })();
+  }, []);
 
   return (
     <header
