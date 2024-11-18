@@ -20,7 +20,6 @@ export default function Header() {
         next: {
           revalidate: 0,
         },
-        mode: "same-origin",
       });
       const info: IPInfo = await data_info.json();
       console.log("info", info);
@@ -31,6 +30,7 @@ export default function Header() {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
         },
+        mode: "same-origin",
         body: JSON.stringify({ info }),
       });
       return await updtIP.json();
