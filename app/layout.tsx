@@ -10,6 +10,7 @@ import { metaObject } from "@/config/website";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import Script from "next/script";
+import GoogleCaptchaWrapper from "@/providers/GoogleReCaptchaWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -46,9 +47,11 @@ export default async function RootLayout({
         />
         <ThemeContextProvider>
           <ActiveSectionContextProvider>
-            <Header />
-            {children}
-            <Footer />
+            <GoogleCaptchaWrapper>
+              <Header />
+              {children}
+              <Footer />
+            </GoogleCaptchaWrapper>
             <Toaster position="top-right" />
             <ThemeSwitch />
           </ActiveSectionContextProvider>

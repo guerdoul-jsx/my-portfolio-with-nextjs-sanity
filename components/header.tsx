@@ -22,7 +22,6 @@ export default function Header() {
         },
       });
       const info: IPInfo = await data_info.json();
-      console.log("info", info);
       const updtIP = await fetch("/api/ip", {
         method: "POST",
         headers: {

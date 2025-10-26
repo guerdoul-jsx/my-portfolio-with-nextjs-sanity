@@ -31,7 +31,7 @@ export default async function Home(props: any) {
       <Projects projects={projects} />
       <Skills skills={skills} />
       {/* <Experience experiences={experiences} /> */}
-      <Contact email={infos[0].email} phone={infos[0].phone} />
+      <Contact base_email={infos[0].email} />
     </main>
   );
 }
