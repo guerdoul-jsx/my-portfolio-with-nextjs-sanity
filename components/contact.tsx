@@ -7,17 +7,60 @@ import { useSectionInView } from "@/hooks/use-section-in-view";
 import { sendEmail } from "@/actions/send-email";
 import SubmitBtn from "./submit-btn";
 import toast from "react-hot-toast";
-import { BsPhone } from "react-icons/bs";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
-export default function Contact({
-  email,
-  phone,
-}: {
-  email: string;
-  phone: string;
-}) {
+export default function Contact({ base_email }: { base_email: string }) {
   const { ref } = useSectionInView("Contact");
-  const whatsapp = `0${phone.replace("+212", "")}`;
+
+  const [loading, setLoading] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const [message, setMessage] = React.useState("");
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      if (!executeRecaptcha) {
+        toast.error("reCAPTCHA not yet available");
+        return;
+      }
+
+      const gRecaptchaToken = await executeRecaptcha("inquirySubmit");
+
+      const response = await fetch("/api/recaptcha", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ gRecaptchaToken }),
+      }).then((res) => res.json());
+
+      if (response?.success === true) {
+        console.log(`Success with score: ${response?.score}`);
+
+        let formData = new FormData();
+        formData.append("senderEmail", email);
+        formData.append("message", message);
+
+        const { data, error } = await sendEmail(formData);
+
+        if (error) {
+          toast.error(error);
+          return;
+        }
+        toast.success("Email sent successfully!");
+      } else {
+        console.log(`Failure with score: ${response?.data?.score}`);
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <motion.section
@@ -40,34 +83,15 @@ export default function Contact({
       <SectionHeading>Contact me</SectionHeading>
       <p className="text-gray-700 -mt-6 dark:text-white/80 ">
         Feel free to contact me directly at{" "}
-        <a className="underline font-extrabold" href={`mailto:${email}`}>
+        <a className="underline font-extrabold" href={`mailto:${base_email}`}>
           contact@guerdoul.com
         </a>{" "}
-        or by using Whatsapp
-        <a
-          className="underline font-extrabold"
-          target="_blank"
-          href={`https://api.whatsapp.com/send/?phone=${whatsapp}&text&type=phone_number&app_absent=0`}
-        >
-          {" "}
-          {phone}{" "}
-        </a>
         or through this form.
       </p>
 
       <form
         className="mt-10 flex flex-col dark:text-black"
-        action={async (formData) => {
-          const { data, error } = await sendEmail(formData);
-
-          console.log("FORM DATA", formData);
-
-          if (error) {
-            toast.error(error);
-            return;
-          }
-          toast.success("Email sent successfully!");
-        }}
+        onSubmit={handleSubmit}
       >
         <input
           className="h-14 px-4 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
@@ -76,6 +100,7 @@ export default function Contact({
           required
           maxLength={500}
           placeholder="Your email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <textarea
           className="h-52 my-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
@@ -83,8 +108,9 @@ export default function Contact({
           placeholder="Your message"
           required
           maxLength={5000}
+          onChange={(e) => setMessage(e.target.value)}
         />
-        <SubmitBtn />
+        <SubmitBtn loading={loading} />
       </form>
     </motion.section>
   );
